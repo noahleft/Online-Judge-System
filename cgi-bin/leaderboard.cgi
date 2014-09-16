@@ -42,7 +42,7 @@ print '''
   <footer id="foot01"></footer>
 </div>
 
-<script src="../Script.js"></script>
+<script src="Script.js"></script>
 
 </body>
 </html>'''
