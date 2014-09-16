@@ -16,13 +16,14 @@ c.execute('''CREATE TABLE IF NOT EXISTS board
               NAME TEXT NOT NULL,
               TIME INTEGER NOT NULL,
               ACCURACY INTERGER NOT NULL,
+              RUNTIME INTEGER NOT NULL,
               SCORE INTEGER NOT NULL,
               UNIQUE(NAME));''')
 
 import os
 account=os.listdir('/home')
 for name in account:
-  c.execute("INSERT OR IGNORE INTO board (NAME,TIME,ACCURACY,SCORE) VALUES ('"+name+"','0','0','-1');")
+  c.execute("INSERT OR IGNORE INTO board (NAME,TIME,ACCURACY,RUNTIME,SCORE) VALUES ('"+name+"','0','0','0','-1');")
 
 conn.commit()
 conn.close()

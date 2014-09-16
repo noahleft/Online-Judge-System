@@ -11,7 +11,7 @@ import sqlite3
 conn=sqlite3.connect(prefix+'.db')
 cursor=conn.cursor()
 
-cursor.execute("SELECT NAME,ACCURACY,SCORE from board WHERE SCORE!=-1 ORDER BY SCORE;")
+cursor.execute("SELECT NAME,ACCURACY,RUNTIME from board WHERE SCORE!=-1 ORDER BY SCORE;")
 
 
 
@@ -19,7 +19,7 @@ print '''
 <html>
 <head>
 <title>2014 Fall NCTUEE Data Structure</title>
-<link href="Site.css" rel="stylesheet">
+<link href="../Site.css" rel="stylesheet">
 </head>
 <body>
 
@@ -29,7 +29,7 @@ print '''
 '''
 print '<h1>Data Structure '+prefix+' leaderboard</h1>'
 print '<table>'
-print '<tr><th>NAME</th><th>EXAMPLE PASS</th><th>ACCURACY</th><th>SCORE</th></tr>'
+print '<tr><th>NAME</th><th>ACCURACY</th><th>RUN TIME</th></tr>'
 for record in cursor.fetchall():
   print '<tr>'
   for element in record:
@@ -42,7 +42,7 @@ print '''
   <footer id="foot01"></footer>
 </div>
 
-<script src="Script.js"></script>
+<script src="../Script.js"></script>
 
 </body>
 </html>'''

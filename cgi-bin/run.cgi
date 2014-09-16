@@ -60,7 +60,14 @@ if success:
     else:
       runtime=previous
     print 'best result is '+str(runtime)+'<br>'
-    c.execute("UPDATE board SET SCORE = '"+str(runtime)+"', TIME=TIME+1 WHERE NAME = '"+user+"';")
+    accuracy=0
+    score=accuracy*100-runtime
+    sqlmessage ="UPDATE board SET RUNTIME = '"+str(runtime)+"',"
+    sqlmessage+="TIME=TIME+1,"
+    sqlmessage+="ACCURACY = '"+str(accuracy)+"',"
+    sqlmessage+="SCORE = '"+str(score)+"'"
+    sqlmessage+=" WHERE NAME = '"+user+"';"
+    c.execute(sqlmessage)
     conn.commit()
     conn.close()
 else:
