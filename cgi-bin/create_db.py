@@ -1,7 +1,13 @@
 #!/usr/bin/python
+import sys
 import sqlite3
 
-conn=sqlite3.connect('hw1.db')
+if len(sys.argv)!=2:
+  print 'usage: ./create_db.py hw1'
+  exit(0)
+prefix=sys.argv[1]
+
+conn=sqlite3.connect(prefix)
 
 c=conn.cursor()
 
