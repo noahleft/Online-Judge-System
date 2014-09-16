@@ -22,7 +22,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS board
 import os
 account=os.listdir('/home')
 for name in account:
-  c.execute("INSERT OR IGNORE INTO board (NAME,TIME,SCORE) VALUES ('"+name+"','0','-1');")
+  c.execute("INSERT OR IGNORE INTO board (NAME,TIME,ACCURACY,SCORE) VALUES ('"+name+"','0','0','-1');")
 
 conn.commit()
 conn.close()

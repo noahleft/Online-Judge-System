@@ -19,7 +19,7 @@ print '''
 <html>
 <head>
 <title>2014 Fall NCTUEE Data Structure</title>
-<link href="../Site.css" rel="stylesheet">
+<link href="Site.css" rel="stylesheet">
 </head>
 <body>
 
