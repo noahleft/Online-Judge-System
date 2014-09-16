@@ -7,7 +7,7 @@ if len(sys.argv)!=2:
   exit(0)
 prefix=sys.argv[1]
 
-conn=sqlite3.connect(prefix)
+conn=sqlite3.connect(prefix+'.db')
 
 c=conn.cursor()
 
@@ -15,6 +15,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS board
              (ID   INTEGER PRIMARY KEY AUTOINCREMENT,
               NAME TEXT NOT NULL,
               TIME INTEGER NOT NULL,
+              ACCURACY INTERGER NOT NULL,
               SCORE INTEGER NOT NULL,
               UNIQUE(NAME));''')
 
