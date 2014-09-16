@@ -16,6 +16,7 @@ print '''
 <head>'''
 print '<title>DS '+prefix+'</title>'
 print '''
+<meta charset="UTF-8">
 <link href="Site.css" rel="stylesheet">
 </head>
 <body>
