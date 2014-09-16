@@ -1,0 +1,44 @@
+#!/usr/bin/python
+import datetime
+#Amazon aws time zone is EDT (NewYork) 
+due = datetime.datetime(2014, 10, 10, 12, 0, 0, 0)
+allow_upload = due > datetime.datetime.now()
+prefix='hw1'
+
+print("Content-type: text/html")
+print
+import cgitb
+cgitb.enable()
+
+print '''
+<!DOCTYPE html>
+<html>
+<head>'''
+print '<title>DS '+prefix+'</title>'
+print '''
+<link href="Site.css" rel="stylesheet">
+</head>
+<body>
+<nav id="nav01"></nav>
+
+<div id="main">'''
+if allow_upload:
+  print '<h1>Upload your code: '+prefix+'</h1>'
+  print '<form enctype="multipart/form-data" method="post" action="cgi-bin/submit.cgi">'
+  print 'Your Account:'
+  print '<input type="text" name="user"><br>'
+  print 'Upload header file:'
+  print '<input type="file" name="hpp" value="Choose file" accept=".h"><br>'
+  print 'Upload source file:'
+  print '<input type="file" name="cpp" value="Choose file" accept=".cpp"><br>'
+  print '<input type="hidden" value="'+prefix+'">'
+  print '<input type="submit" value="upload_both">'
+  print '</form>'
+else:
+  print "<h1>It's not allowed uploading homework now.</h1>"
+print '''
+  <footer id="foot01"></footer>
+</div>
+<script src="Script.js"></script>
+</body>
+</html>'''
