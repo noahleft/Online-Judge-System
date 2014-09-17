@@ -1,5 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+prefix='hw1'
+headerFile='fileHandler.h'
+sourceFile='fileHandler.cpp'
+
 print("Content-type: text/html\n\n")
 print
 import cgitb
@@ -20,7 +24,7 @@ class Command(object):
     def run(self, timeout):
         def target():
             #print 'Thread started<br>'
-            with open('tmp/ec2-user/log','w') as outfile:
+            with open('tmp/'+user+'/log','w') as outfile:
               self.process = subprocess.Popen(self.cmd, shell=True, stdout=outfile)
             self.process.communicate()
             #print 'Thread finished<br>'
@@ -39,26 +43,28 @@ class Command(object):
         #print self.process.returncode
         return True
 
-command = Command('tmp/ec2-user/ec2-user')
+command = Command('tmp/'+user+'/'+user)
 success=command.run(timeout=15)
 
 
 import re
 import sqlite3
 if success:
-  with open('tmp/ec2-user/log','r') as infile:
+  with open('tmp/'+user+'/log','r') as infile:
     strlines=infile.readlines()
     runtime=int(re.match('Total use ([0-9]+)',strlines[len(strlines)-1]).group(1))
     print 'Ur run time score is '+str(runtime)+'<br>'
-    conn=sqlite3.connect('hw1.db')
+    conn=sqlite3.connect(prefix+'.db')
     c=conn.cursor()
     c.execute("SELECT SCORE FROM board WHERE NAME= '"+user+"';")
     previous=c.fetchall()[0][0]
     print 'current result '+str(previous)+'<br>'
     if previous==-1 or previous>runtime:
+      isImproved=True
       pass
     else:
       runtime=previous
+      isImproved=False
     print 'best result is '+str(runtime)+'<br>'
     accuracy=0
     score=accuracy*100-runtime
@@ -73,4 +79,8 @@ if success:
 else:
   print 'time out'
 
+import shutil
+if isImproved:
+  shutil.copy2('tmp/'+user+'/'+headerFile,'tmp/'+user+'/golden/'+headerFile)
+  shutil.copy2('tmp/'+user+'/'+sourceFile,'tmp/'+user+'/golden/'+sourceFile)
 print("</body></html>")
