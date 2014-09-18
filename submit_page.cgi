@@ -3,6 +3,7 @@ import datetime
 #Amazon aws time zone is EDT (NewYork) 
 due = datetime.datetime(2014, 10, 10, 12, 0, 0, 0)
 allow_upload = due > datetime.datetime.now()
+rest_time=due-datetime.datetime.now()
 prefix='hw1'
 
 print("Content-type: text/html")
@@ -25,6 +26,7 @@ print '''
 <div id="main">'''
 if allow_upload:
   print '<h1>Upload your code: '+prefix+'</h1>'
+  print '<h3>Rest time:'+str(rest_time)+'</h3>'
   print '<form enctype="multipart/form-data" method="post" action="cgi-bin/submit.cgi">'
   print 'Your Account:'
   print '<input type="text" name="user"><br>'

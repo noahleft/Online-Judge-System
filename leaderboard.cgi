@@ -16,7 +16,7 @@ import sqlite3
 conn=sqlite3.connect(prefix+'.db')
 cursor=conn.cursor()
 
-cursor.execute("SELECT NAME,ACCURACY,RUNTIME from board WHERE SCORE!=-1 ORDER BY SCORE;")
+cursor.execute("SELECT NAME,ACCURACY,RUNTIME,SEMAPHORE from board WHERE SCORE!=-1 ORDER BY SCORE;")
 
 print '''
 <!DOCTYPE html>
@@ -33,7 +33,7 @@ print '''
 <div id="main">'''
 print '<h1>Data Structure '+prefix+' leaderboard</h1>'
 print '<table>'
-print '<tr><th>NAME</th><th>ACCURACY</th><th>RUN TIME</th></tr>'
+print '<tr><th>NAME</th><th>ACCURACY</th><th>RUN TIME</th><th>Running</th></tr>'
 for record in cursor.fetchall():
   print '<tr>'
   for element in record:

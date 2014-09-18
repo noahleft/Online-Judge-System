@@ -29,7 +29,7 @@ import subprocess
 form=cgi.FieldStorage()
 
 user_name=form.getvalue('user')
-print "user:"+user_name+"<br>"
+print "<h2>user:"+user_name+"</h2>"
 import os
 account=os.listdir('/home')
 if not user_name in account:
@@ -38,7 +38,7 @@ else:
   hpp_fileitem=form['hpp']
   cpp_fileitem=form['cpp']
   if hpp_fileitem.filename and cpp_fileitem.filename:
-    print 'tmp file upload success<br>'
+    print '<h3>(1)tmp file upload success</h3>'
     hpp_fn = os.path.basename(hpp_fileitem.filename)
     cpp_fn = os.path.basename(cpp_fileitem.filename)
     if hpp_fn!=headerName or cpp_fn!=sourceName:
@@ -48,7 +48,7 @@ else:
     open('tmp/'+user_name+'/'+hpp_fn,'wb').write(hpp_fileitem.file.read())
     open('tmp/'+user_name+'/'+cpp_fn,'wb').write(cpp_fileitem.file.read())
     if os.path.isfile('tmp/'+user_name+'/'+user_name):
-      print "Detected previous exec file. <br>"
+      print "<h3>(2-1)detect previous exec file.</h3>"
       os.remove('tmp/'+user_name+'/'+user_name)
     bashCommand=['g++',
                  'tmp/'+user_name+'/main.cpp',
@@ -57,8 +57,11 @@ else:
                  '-o','tmp/'+user_name+'/'+user_name]
     subprocess.call(bashCommand)
     if os.path.isfile('tmp/'+user_name+'/'+user_name):
-      print("file compile success<br>")
-      print("<a href='run.cgi?id="+user_name+"'>jump to exec phase</a>")
+      print("<h3>(2)file compile success</h3>")
+      print("<h3>(3)file is running</h3>")
+      print("<a href='http://54.68.45.250/~ec2-user/leaderboard.cgi?idx="+prefix[2]+"'>jump back to leaderboard</a>")
+      import subprocess
+      subprocess.Popen(['python','run.py',user_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     else:
       print("file compile fail<br>")
   else:
