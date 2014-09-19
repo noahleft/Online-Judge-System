@@ -30,10 +30,24 @@ form=cgi.FieldStorage()
 
 user_name=form.getvalue('user')
 print "<h2>user:"+user_name+"</h2>"
-import os
+
+
+import sqlite3
+conn=sqlite3.connect(prefix+'.db')
+c=conn.cursor()
+c.execute("SELECT LAST_SUBMIT FROM board WHERE NAME= '"+user_name+"';")
+previous=c.fetchall()[0][0]
+import time
+previous=time.strptime(previous,'%Y-%m-%d %H:%M:%S')
+last_time=datetime.datetime(previous.tm_year,previous.tm_mon,previous.tm_mday,previous.tm_hour,previous.tm_min,previous.tm_sec)
+elapse=datetime.datetime.now()-last_time
+from datetime import timedelta
+
 account=os.listdir('/home')
 if not user_name in account:
   print "Wrong user"
+elif elapse<timedelta(seconds=600):
+  print '<h1>since last time you upload, it is less than 10 mins.</h1>'
 else:
   hpp_fileitem=form['hpp']
   cpp_fileitem=form['cpp']

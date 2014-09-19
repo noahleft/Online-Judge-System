@@ -47,14 +47,15 @@ success=command.run(timeout=120)
 
 import re
 import shutil
+conn=sqlite3.connect(prefix+'.db')
+c=conn.cursor()
 if success:
   with open('tmp/'+user+'/log','r') as infile:
     strlines=infile.readlines()
+    examplePass=int(re.match('Example case ([0-9\.]+)',strlines[len(strlines)-3]).group(1))
     runtime=float(re.match('Total use  ([0-9\.]+)',strlines[len(strlines)-2]).group(1))
     accuracy=int(re.match('Total pass ([0-9]+)',strlines[len(strlines)-1]).group(1))
     print 'Ur run time score is '+str(runtime)+'<br>'
-    conn=sqlite3.connect(prefix+'.db')
-    c=conn.cursor()
     c.execute("SELECT SCORE FROM board WHERE NAME= '"+user+"';")
     previous=c.fetchall()[0][0]
     score=accuracy*100-runtime
@@ -70,15 +71,18 @@ if success:
       sqlmessage+=" WHERE NAME = '"+user+"';"
     else:
       isImproved=False
-      sqlmessage="UPDATE board SET TIME=TIME+1 LAST_SUBMIT = datetime(CURRENT_TIMESTAMP,'localtime') SEMAPHORE = 0 " \
+      sqlmessage="UPDATE board SET TIME=TIME+1,LAST_SUBMIT = datetime(CURRENT_TIMESTAMP,'localtime'),SEMAPHORE = 0 " \
                  +"WHERE NAME = '"+user+"';"
     print 'best result is '+str(score)+'<br>'
     c.execute(sqlmessage)
-    conn.commit()
-    conn.close()
     if success and isImproved:
       shutil.copy2('tmp/'+user+'/'+headerFile,'tmp/'+user+'/golden/'+headerFile)
       shutil.copy2('tmp/'+user+'/'+sourceFile,'tmp/'+user+'/golden/'+sourceFile)
 else:
+  sqlmessage="UPDATE board SET TIME=TIME+1,LAST_SUBMIT = datetime(CURRENT_TIMESTAMP,'localtime'),SEMAPHORE = 0 " \
+             +"WHERE NAME = '"+user+"';"
+  c.execute(sqlmessage)
   print 'time out'
 
+conn.commit()
+conn.close()
