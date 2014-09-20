@@ -23,8 +23,10 @@ print '''
   <link href="Site.css" rel="stylesheet">
 </head>'''
 
+def is_ascii(s):
+  return all(ord(c) < 128 for c in s)
 
-if user_name and new_name:
+if user_name and new_name and is_ascii(user_name) and is_ascii(new_name):
   print '''
   <body>
   <nav id="nav01"></nav>'''
@@ -49,6 +51,23 @@ if user_name and new_name:
       print '<h3>user:'+user_name+' are not allowed to change your name twice</h3>'
   print '<footer id="foot01"></footer>'
   print '</div>'
+elif user_name and new_name:
+  print '''
+  <body>
+    <nav id="nav01"></nav>
+    <div id="main">
+      <h1>Change the name in leaderboard</h1>
+      <h2>Note: You have only one chance to change your display name.</h2>
+      <h3>!!!  ascii only  !!!</h3>
+      <form action='change.cgi'>
+        Original name:
+        <input type='text' name='original'><br>
+        New name:
+        <input type='text' name='new_name'><br>
+        <input type='submit'>
+      </form>
+      <footer id="foot01"></footer>
+    </div>'''
 else:
   print '''
   <body>
