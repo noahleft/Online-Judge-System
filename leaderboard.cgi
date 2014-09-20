@@ -18,6 +18,15 @@ cursor=conn.cursor()
 
 cursor.execute("SELECT NAME,ACCURACY,RUNTIME,SEMAPHORE from board WHERE SCORE!=-1 ORDER BY SCORE;")
 
+user_db=sqlite3.connect('user.db')
+user_cursor=user_db.cursor()
+user_cursor.execute("SELECT NAME,DISPLAY from user;")
+
+user_pair=user_cursor.fetchall()
+user_map={}
+for element in user_pair:
+  user_map[element[0]]=element[1]
+
 print '''
 <!DOCTYPE html>
 <html>
@@ -36,7 +45,8 @@ print '<table>'
 print '<tr><th>NAME</th><th>ACCURACY</th><th>RUN TIME</th><th>Running</th></tr>'
 for record in cursor.fetchall():
   print '<tr>'
-  for element in record:
+  print '<td>'+str(user_map[record[0]])+'</td>'
+  for element in record[1:]:
     print '<td>'+str(element)+'</td>'
   print '</tr>'
 print '</table>'

@@ -28,7 +28,7 @@ if allow_upload:
   print '<h1>Upload your code: '+prefix+'</h1>'
   print '<h3>Rest time:'+str(rest_time)+'</h3>'
   print '<form enctype="multipart/form-data" method="post" action="cgi-bin/submit.cgi">'
-  print 'Your Account:'
+  print 'Your Account(i.e. ds001):'
   print '<input type="text" name="user"><br>'
   print 'Upload header file:'
   print '<input type="file" name="hpp" value="Choose file" accept=".h"><br>'
