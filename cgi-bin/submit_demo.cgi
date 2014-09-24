@@ -4,7 +4,7 @@ import datetime
 #Amazon aws time zone is EDT (NewYork) 
 due = datetime.datetime(2014, 10, 10, 12, 0, 0, 0)
 allow_upload = due > datetime.datetime.now()
-prefix='hw1'
+prefix='demo'
 headerName='fileHandler.h'
 sourceName='fileHandler.cpp'
 
@@ -59,18 +59,18 @@ else:
       print "Please check file name. Don't modify the name.<br>"
       print "</body></html>"
       exit(0)
-    open(prefix+'/'+user_name+'/'+hpp_fn,'wb').write(hpp_fileitem.file.read())
-    open(prefix+'/'+user_name+'/'+cpp_fn,'wb').write(cpp_fileitem.file.read())
-    if os.path.isfile(prefix+'/'+user_name+'/'+user_name):
+    open('tmp/'+user_name+'/'+hpp_fn,'wb').write(hpp_fileitem.file.read())
+    open('tmp/'+user_name+'/'+cpp_fn,'wb').write(cpp_fileitem.file.read())
+    if os.path.isfile('tmp/'+user_name+'/'+user_name):
       print "<h3>(2-1)detect previous exec file.</h3>"
-      os.remove(prefix+'/'+user_name+'/'+user_name)
+      os.remove('tmp/'+user_name+'/'+user_name)
     bashCommand=['g++',
-                 prefix+'/'+user_name+'/main.cpp',
-                 prefix+'/'+user_name+'/fileHandler.cpp',
-                 '-I',prefix+'/'+user_name,'-O0',
-                 '-o',prefix+'/'+user_name+'/'+user_name]
+                 'tmp/'+user_name+'/main.cpp',
+                 'tmp/'+user_name+'/fileHandler.cpp',
+                 '-I','tmp/'+user_name,'-O0',
+                 '-o','tmp/'+user_name+'/'+user_name]
     subprocess.call(bashCommand)
-    if os.path.isfile(prefix+'/'+user_name+'/'+user_name):
+    if os.path.isfile('tmp/'+user_name+'/'+user_name):
       print("<h3>(2)file compile success</h3>")
       print("<h3>(3)file is running</h3>")
       print("<a href='http://54.68.45.250/~ec2-user/leaderboard.cgi?idx="+prefix[2]+"'>jump back to leaderboard</a>")

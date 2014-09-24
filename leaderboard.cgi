@@ -8,11 +8,10 @@ cgitb.enable()
 
 import cgi
 form=cgi.FieldStorage()
-idxList=[str(x) for x in range(1,7)]
-#if not form.getvalue('idx') in idxList:
-#  exit(-1)
-#prefix='hw'+form.getvalue('idx')
-prefix='hw1'
+idxList=[str(x) for x in range(0,7)]
+if not form.getvalue('idx') in idxList:
+  exit(-1)
+prefix='hw'+form.getvalue('idx')
 import sqlite3
 conn=sqlite3.connect(prefix+'.db')
 cursor=conn.cursor()
