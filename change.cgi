@@ -3,8 +3,8 @@
 
 print("Content-type: text/html")
 print
-import cgitb
-cgitb.enable()
+#import cgitb
+#cgitb.enable()
 
 import cgi
 import os
@@ -13,6 +13,7 @@ form=cgi.FieldStorage()
 
 user_name=form.getvalue('original')
 new_name=form.getvalue('new_name')
+token_key=form.getvalue('token')
 
 print '''
 <!DOCTYPE html>
@@ -40,9 +41,13 @@ if user_name and new_name and is_ascii(user_name) and is_ascii(new_name):
   else:
     conn=sqlite3.connect(prefix+'.db')
     c=conn.cursor()
-    c.execute("SELECT ALLOW_MODIFY FROM user WHERE NAME= '"+user_name+"';")
-    previous=c.fetchall()[0][0]
-    if int(previous)==1:
+    c.execute("SELECT ALLOW_MODIFY,TOKEN FROM user WHERE NAME= '"+user_name+"';")
+    data=c.fetchall()
+    previous=data[0][0]
+    token=data[0][1]
+    if token!=token_key:
+      print '<h3>wrong token</h3>'
+    elif int(previous)==1:
       c.execute("UPDATE user SET DISPLAY='"+new_name+"',ALLOW_MODIFY=0 "+ \
                 "WHERE NAME='"+user_name+"';")
       conn.commit()
@@ -59,13 +64,6 @@ elif user_name and new_name:
       <h1>Change the name in leaderboard</h1>
       <h2>Note: You have only one chance to change your display name.</h2>
       <h3>!!!  ascii only  !!!</h3>
-      <form action='change.cgi'>
-        Original name:
-        <input type='text' name='original'><br>
-        New name:
-        <input type='text' name='new_name'><br>
-        <input type='submit'>
-      </form>
       <footer id="foot01"></footer>
     </div>'''
 else:
@@ -76,8 +74,10 @@ else:
     <h1>Change the name in leaderboard</h1>
     <h2>Note: You have only one chance to change your display name.</h2><br>
     <form action='change.cgi'>
-      Original name:
+      Account:
       <input type='text' name='original'><br>
+      Token:
+      <input type='text' name='token'><br>
       New name:
       <input type='text' name='new_name'><br>
       <input type='submit'>

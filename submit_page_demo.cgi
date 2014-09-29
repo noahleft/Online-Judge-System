@@ -4,12 +4,12 @@ import datetime
 due = datetime.datetime(2014, 10, 10, 12, 0, 0, 0)
 allow_upload = due > datetime.datetime.now()
 rest_time=due-datetime.datetime.now()
-prefix='demo'
+prefix='hw0'
 
 print("Content-type: text/html")
 print
-import cgitb
-cgitb.enable()
+#import cgitb
+#cgitb.enable()
 
 print '''
 <!DOCTYPE html>
@@ -30,6 +30,8 @@ if allow_upload:
   print '<form enctype="multipart/form-data" method="post" action="cgi-bin/submit_demo.cgi">'
   print 'Your Account(i.e. ds001):'
   print '<input type="text" name="user"><br>'
+  print 'Your token:'
+  print '<input type="text" name="token"><br>'
   print 'Upload header file:'
   print '<input type="file" name="hpp" value="Choose file" accept=".h"><br>'
   print 'Upload source file:'

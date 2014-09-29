@@ -5,13 +5,13 @@ import datetime
 due = datetime.datetime(2014, 10, 10, 12, 0, 0, 0)
 allow_upload = due > datetime.datetime.now()
 prefix='hw1'
-headerName='fileHandler.h'
-sourceName='fileHandler.cpp'
+headerName='PrimeChecker.h'
+sourceName='PrimeChecker.cpp'
 
 print("Content-type: text/html")
 print
-import cgitb
-cgitb.enable()
+#import cgitb
+#cgitb.enable()
 
 print("<html>")
 print("<title>upload result</title>")
@@ -30,7 +30,7 @@ form=cgi.FieldStorage()
 
 user_name=form.getvalue('user')
 print "<h2>user:"+user_name+"</h2>"
-
+token_key=form.getvalue('token')
 
 import sqlite3
 conn=sqlite3.connect(prefix+'.db')
@@ -43,9 +43,16 @@ last_time=datetime.datetime(previous.tm_year,previous.tm_mon,previous.tm_mday,pr
 elapse=datetime.datetime.now()-last_time
 from datetime import timedelta
 
+tokenCheck=sqlite3.connect('user.db')
+checker=tokenCheck.cursor()
+checker.execute("SELECT TOKEN FROM user WHERE NAME= '"+user_name+"';")
+token=checker.fetchall()[0][0]
+
 account=os.listdir('/home')
 if not user_name in account:
   print "Wrong user"
+elif token_key!=token:
+  print "Wrong token key"
 elif elapse<timedelta(seconds=600):
   print '<h1>since last time you upload, it is less than 10 mins.</h1>'
 else:
@@ -66,7 +73,7 @@ else:
       os.remove(prefix+'/'+user_name+'/'+user_name)
     bashCommand=['g++',
                  prefix+'/'+user_name+'/main.cpp',
-                 prefix+'/'+user_name+'/fileHandler.cpp',
+                 prefix+'/'+user_name+'/'+sourceName,
                  '-I',prefix+'/'+user_name,'-O0',
                  '-o',prefix+'/'+user_name+'/'+user_name]
     subprocess.call(bashCommand)

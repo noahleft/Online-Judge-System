@@ -16,13 +16,18 @@ c.execute('''CREATE TABLE IF NOT EXISTS user
               NAME TEXT NOT NULL,
               DISPLAY TEXT NOT NULL,
               ALLOW_MODIFY INTEGER NOT NULL,
+              TOKEN TEXT NOT NULL,
               UNIQUE(NAME));''')
 
 import os
+import random
+import string
+N=5
 account=os.listdir('/home')
 for name in account:
-  c.execute("INSERT OR IGNORE INTO user (NAME,DISPLAY,ALLOW_MODIFY) VALUES ('" \
-            +name+"','"+name+"','1');")
+  token=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+  c.execute("INSERT OR IGNORE INTO user (NAME,DISPLAY,ALLOW_MODIFY,TOKEN) VALUES ('" \
+            +name+"','"+name+"','1','"+token+"');")
 
 conn.commit()
 conn.close()

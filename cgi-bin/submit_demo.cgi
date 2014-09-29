@@ -4,14 +4,14 @@ import datetime
 #Amazon aws time zone is EDT (NewYork) 
 due = datetime.datetime(2014, 10, 10, 12, 0, 0, 0)
 allow_upload = due > datetime.datetime.now()
-prefix='demo'
-headerName='fileHandler.h'
-sourceName='fileHandler.cpp'
+prefix='hw0'
+headerName='calculator.h'
+sourceName='calculator.cpp'
 
 print("Content-type: text/html")
 print
-import cgitb
-cgitb.enable()
+#import cgitb
+#cgitb.enable()
 
 print("<html>")
 print("<title>upload result</title>")
@@ -30,7 +30,7 @@ form=cgi.FieldStorage()
 
 user_name=form.getvalue('user')
 print "<h2>user:"+user_name+"</h2>"
-
+token_key=form.getvalue('token')
 
 import sqlite3
 conn=sqlite3.connect(prefix+'.db')
@@ -43,9 +43,16 @@ last_time=datetime.datetime(previous.tm_year,previous.tm_mon,previous.tm_mday,pr
 elapse=datetime.datetime.now()-last_time
 from datetime import timedelta
 
+tokenCheck=sqlite3.connect('user.db')
+checker=tokenCheck.cursor()
+checker.execute("SELECT TOKEN FROM user WHERE NAME= '"+user_name+"';")
+token=checker.fetchall()[0][0]
+
 account=os.listdir('/home')
 if not user_name in account:
   print "Wrong user"
+elif token_key!=token:
+  print "Wrong token key"
 elif elapse<timedelta(seconds=600):
   print '<h1>since last time you upload, it is less than 10 mins.</h1>'
 else:
@@ -59,23 +66,23 @@ else:
       print "Please check file name. Don't modify the name.<br>"
       print "</body></html>"
       exit(0)
-    open('tmp/'+user_name+'/'+hpp_fn,'wb').write(hpp_fileitem.file.read())
-    open('tmp/'+user_name+'/'+cpp_fn,'wb').write(cpp_fileitem.file.read())
-    if os.path.isfile('tmp/'+user_name+'/'+user_name):
+    open(prefix+'/'+user_name+'/'+hpp_fn,'wb').write(hpp_fileitem.file.read())
+    open(prefix+'/'+user_name+'/'+cpp_fn,'wb').write(cpp_fileitem.file.read())
+    if os.path.isfile(prefix+'/'+user_name+'/'+user_name):
       print "<h3>(2-1)detect previous exec file.</h3>"
-      os.remove('tmp/'+user_name+'/'+user_name)
+      os.remove(prefix+'/'+user_name+'/'+user_name)
     bashCommand=['g++',
-                 'tmp/'+user_name+'/main.cpp',
-                 'tmp/'+user_name+'/fileHandler.cpp',
-                 '-I','tmp/'+user_name,'-O0',
-                 '-o','tmp/'+user_name+'/'+user_name]
+                 prefix+'/'+user_name+'/main.cpp',
+                 prefix+'/'+user_name+'/'+sourceName,
+                 '-I',prefix+'/'+user_name,'-O0',
+                 '-o',prefix+'/'+user_name+'/'+user_name]
     subprocess.call(bashCommand)
-    if os.path.isfile('tmp/'+user_name+'/'+user_name):
+    if os.path.isfile(prefix+'/'+user_name+'/'+user_name):
       print("<h3>(2)file compile success</h3>")
       print("<h3>(3)file is running</h3>")
       print("<a href='http://54.68.45.250/~ec2-user/leaderboard.cgi?idx="+prefix[2]+"'>jump back to leaderboard</a>")
       import subprocess
-      subprocess.Popen(['python','run.py',user_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+      subprocess.Popen(['python','run_demo.py',user_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     else:
       print("file compile fail<br>")
   else:

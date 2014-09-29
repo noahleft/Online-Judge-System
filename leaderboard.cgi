@@ -3,8 +3,8 @@
 
 print("Content-type: text/html")
 print("")
-import cgitb
-cgitb.enable()
+#import cgitb
+#cgitb.enable()
 
 import cgi
 form=cgi.FieldStorage()
@@ -16,7 +16,7 @@ import sqlite3
 conn=sqlite3.connect(prefix+'.db')
 cursor=conn.cursor()
 
-cursor.execute("SELECT NAME,ACCURACY,RUNTIME,SEMAPHORE from board WHERE SCORE!=-1 ORDER BY SCORE;")
+cursor.execute("SELECT NAME,ACCURACY,RUNTIME,SEMAPHORE from board WHERE SCORE!=-1 OR SEMAPHORE=1 ORDER BY SCORE;")
 
 user_db=sqlite3.connect('user.db')
 user_cursor=user_db.cursor()
@@ -45,11 +45,16 @@ print('<table>')
 print('<tr><th>NAME</th><th>ACCURACY</th><th>RUN TIME</th><th>Running</th></tr>')
 recordList=cursor.fetchall()
 
-for record in recordList:
+for record in recordList[::-1]:
   print('<tr>')
-  print('<td>'+user_map[record[0]]+'</td>')
+  #record[0]=user_map[record[0]]
+  if record[3]==1:
+    flag='<font color="#FF9900">'
+  else:
+    flag='<font>'
+  print('<td>'+flag+user_map[record[0]]+'</font>'+'</td>')
   for element in record[1:]:
-    print('<td>'+str(element)+'</td>')
+    print('<td>'+flag+str(element)+'</font>'+'</td>')
   print('</tr>')
 print('</table>')
 

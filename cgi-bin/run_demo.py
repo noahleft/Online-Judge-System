@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-prefix='hw1'
-headerFile='PrimeChecker.h'
-sourceFile='PrimeChecker.cpp'
+prefix='hw0'
+headerFile='calculator.h'
+sourceFile='calculator.cpp'
 import os
 os.chdir(prefix)
 

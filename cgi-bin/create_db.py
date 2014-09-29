@@ -15,9 +15,9 @@ c.execute('''CREATE TABLE IF NOT EXISTS board
              (ID   INTEGER PRIMARY KEY AUTOINCREMENT,
               NAME TEXT NOT NULL,
               TIME INTEGER NOT NULL,
-              ACCURACY INTERGER NOT NULL,
-              RUNTIME INTEGER NOT NULL,
-              SCORE INTEGER NOT NULL,
+              ACCURACY REAL NOT NULL,
+              RUNTIME REAL NOT NULL,
+              SCORE REAL NOT NULL,
               LAST_SUBMIT DATETIME NOT NULL,
               SEMAPHORE INTEGER NOT NULL,
               UNIQUE(NAME));''')
