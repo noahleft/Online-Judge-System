@@ -42,12 +42,20 @@ print('''
 <div id="main">''')
 print('<h1>Data Structure '+prefix+' leaderboard</h1>')
 print('<table>')
-print('<tr><th>NAME</th><th>ACCURACY</th><th>RUN TIME</th><th>Running</th></tr>')
-recordList=cursor.fetchall()
+print("<tr><th class='noBorder'></th>")
+print("<th>NAME</th><th>ACCURACY</th><th>RUN TIME</th><th>Running</th></tr>")
+recordList=cursor.fetchall()[::-1]
 
-for record in recordList[::-1]:
+number=["<img src='graph/number1.svg' width='100%' />",
+        "<img src='graph/number2.svg' width='100%' />",
+        "<img src='graph/number3.svg' width='100%' />"]
+
+for record in recordList:
   print('<tr>')
-  #record[0]=user_map[record[0]]
+  if recordList.index(record)<=2:
+    print('<td class="noBorder">'+number[recordList.index(record)]+'</td>')
+  else:
+    print('<td class="noBorder"></td>')
   if record[3]==1:
     flag='<font color="#FF9900">'
   else:

@@ -3,10 +3,11 @@
 
 homework=[('Honor code','docs/Honor code.docx'),
           ('Account','docs/account.pdf'),
-          ('Intro','docs/DS_Intro.pdf'),
+          ('Intro','docs/DS_intro.pdf'),
           ('HW#1','docs/DS_hw1.rar')]
 lecture=[('Lecture 0','docs/lec0.pptx'),
-         ('Lecture 1','docs/lec1.pptx')]
+         ('Lecture 1','docs/lec1.pptx'),
+         ('Lecture 2','docs/lec2.pptx')]
 
 print("Content-type: text/html")
 print

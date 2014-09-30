@@ -31,6 +31,17 @@ table, th , td {
     padding: 5px;
 }
 
+th.noBorder,td.noBorder{
+  border: 1px solid white;
+  border-right: 1px solid grey;
+  border-collapse: collapse;
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  text-align: right;
+  padding: 0px;
+}
+
 th {
     text-align: left; 
 }
