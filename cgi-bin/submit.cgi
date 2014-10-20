@@ -2,16 +2,18 @@
 # -*- coding: UTF-8 -*-
 import datetime
 #Amazon aws time zone is EDT (NewYork) 
-due = datetime.datetime(2014, 10, 10, 12, 0, 0, 0)
+#due = datetime.datetime(2014, 10, 10, 12, 0, 0, 0)
+from config import due
 allow_upload = due > datetime.datetime.now()
-prefix='hw1'
-headerName='PrimeChecker.h'
-sourceName='PrimeChecker.cpp'
+
+from config import prefix
+from config import headerName
+from config import sourceName
 
 print("Content-type: text/html")
 print
-#import cgitb
-#cgitb.enable()
+import cgitb
+cgitb.enable()
 
 print("<html>")
 print("<title>upload result</title>")
