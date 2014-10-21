@@ -12,8 +12,8 @@ from config import sourceName
 
 print("Content-type: text/html")
 print
-import cgitb
-cgitb.enable()
+#import cgitb
+#cgitb.enable()
 
 print("<html>")
 print("<title>upload result</title>")
@@ -50,6 +50,8 @@ checker=tokenCheck.cursor()
 checker.execute("SELECT TOKEN FROM user WHERE NAME= '"+user_name+"';")
 token=checker.fetchall()[0][0]
 
+from checker import Checker
+
 account=os.listdir('/home')
 if not user_name in account:
   print "Wrong user"
@@ -70,6 +72,11 @@ else:
       exit(0)
     open(prefix+'/'+user_name+'/'+hpp_fn,'wb').write(hpp_fileitem.file.read())
     open(prefix+'/'+user_name+'/'+cpp_fn,'wb').write(cpp_fileitem.file.read())
+    if Checker(prefix+'/'+user_name+'/'+hpp_fn) and Checker(prefix+'/'+user_name+'/'+cpp_fn):
+      pass
+    else:
+      print "</body></html>"
+      exit(0)
     if os.path.isfile(prefix+'/'+user_name+'/'+user_name):
       print "<h3>(2-1)detect previous exec file.</h3>"
       os.remove(prefix+'/'+user_name+'/'+user_name)
