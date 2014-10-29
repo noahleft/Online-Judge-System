@@ -10,7 +10,8 @@ homework=[('Honor code','docs/Honor code.docx'),
 lecture=[('Lecture 0','docs/lec0.pptx'),
          ('Lecture 1','docs/lec1.pptx'),
          ('Lecture 2','docs/lec2.pptx'),
-         ('Lecture 3','docs/lec3.pptx')]
+         ('Lecture 3','docs/lec3.pptx'),
+         ('Lecture 4','docs/lec4.pptx')]
 
 print("Content-type: text/html")
 print

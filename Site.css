@@ -52,6 +52,12 @@ table tr:nth-child(odd) {
 table tr:nth-child(even) {
     background-color: #ffffff;
 }
+
+table.hw2 tr.hw2 {
+    border: 1px transparent;
+    background-color: #696969;
+}
+
 table.tran tr.tran {
     border: 1px transparent;
     background-color: #2e8b57;

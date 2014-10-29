@@ -53,11 +53,13 @@ token=checker.fetchall()[0][0]
 from checker import Checker
 
 account=os.listdir('/home')
+ta_account=['noahleft']
+
 if not user_name in account:
   print "Wrong user"
 elif token_key!=token:
   print "Wrong token key"
-elif elapse<timedelta(seconds=600):
+elif elapse<timedelta(seconds=600) and not user_name in ta_account:
   print '<h1>since last time you upload, it is less than 10 mins.</h1>'
 else:
   hpp_fileitem=form['hpp']

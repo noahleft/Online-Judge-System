@@ -6,6 +6,6 @@ document.getElementById("nav01").innerHTML =
 "<li><a href='fame_hall.html'><font color='#FF9900'>New! </font>FameHall</a></li>" +
 "<li><a href='submit_page.cgi'>Submit</a></li>" +
 "<li><a href='leaderboard.cgi?idx=2'>Leaderboard</a></li>" +
-"<li><a href='last_status.cgi?idx=2'><font color='#FF9900'>New! </font>LastUploadRecord</a></li>" +
+"<li><a href='last_status.cgi?idx=2'>LastUploadRecord</a></li>" +
 "<li><a href='change.cgi'>Change Name</a></li>" +
 "</ul>";

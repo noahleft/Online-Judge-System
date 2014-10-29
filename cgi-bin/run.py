@@ -45,7 +45,7 @@ conn.commit()
 conn.close()
 command = Command(user+'/'+user)
 success=command.run(timeout=120)
-
+subprocess.call(['../check_process.py',user])
 
 import re
 import shutil
