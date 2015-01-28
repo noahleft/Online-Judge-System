@@ -32,7 +32,8 @@ for name in account:
   c.execute("INSERT OR IGNORE INTO board (NAME,TIME,ACCURACY,RUNTIME,SCORE, \
                                           LAST_SUBMIT,SEMAPHORE,LAST_ACCURACY, \
                                           LAST_RUNTIME,LAST_ORDER,LAST_IMPROVE) VALUES ('" \
-            +name+"','0','0','0','-1',datetime(CURRENT_TIMESTAMP,'localtime'),'0','-1','-1','-1',datetime(CURRENT_TIMESTAMP,'localtime'));")
+                                          +name+"','0','0','0','-1',datetime(CURRENT_TIMESTAMP,'localtime')," \
+                                          +"'0','-1','-1','-1',datetime(CURRENT_TIMESTAMP,'localtime'));")
 
 conn.commit()
 conn.close()

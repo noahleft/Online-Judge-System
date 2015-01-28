@@ -85,6 +85,7 @@ else:
     bashCommand=['g++',
                  prefix+'/'+user_name+'/main.cpp',
                  prefix+'/'+user_name+'/'+sourceName,
+                 '-I',prefix,
                  '-I',prefix+'/'+user_name,'-O0',
                  '-o',prefix+'/'+user_name+'/'+user_name]
     subprocess.call(bashCommand)

@@ -6,12 +6,19 @@ homework=[('Honor code','docs/Honor code.docx'),
           ('Intro','docs/DS_intro.pdf'),
           ('Intro2','docs/DS_intro2.pptx'),
           ('HW#1','docs/DS_hw1.rar'),
-          ('HW#2','docs/DS_hw2_iRobot.rar')]
+          ('HW#2','docs/DS_hw2_iRobot.rar'),
+          ('HW#3','docs/DS_hw3_ftp.zip'),
+          ('HW#4','docs/DS_hw4_cycleDetection.rar'),
+          ('HW#5','docs/DS_hw5_bankManger.rar')]
 lecture=[('Lecture 0','docs/lec0.pptx'),
          ('Lecture 1','docs/lec1.pptx'),
          ('Lecture 2','docs/lec2.pptx'),
          ('Lecture 3','docs/lec3.pptx'),
-         ('Lecture 4','docs/lec4.pptx')]
+         ('Lecture 4','docs/lec4.pptx'),
+         ('Lecture 5','docs/lec5.pptx'),
+         ('Lecture 6','docs/lec6.pptx'),
+         ('Lecture 7','docs/lec7.pptx'),
+         ('Lecture 8','docs/lec8.pptx')]
 
 print("Content-type: text/html")
 print

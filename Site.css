@@ -53,6 +53,16 @@ table tr:nth-child(even) {
     background-color: #ffffff;
 }
 
+table.hw4 tr.hw4 {
+    border: 1px transparent;
+    background-color: #5656f6;
+}
+
+table.hw3 tr.hw3 {
+    border: 1px transparent;
+    background-color: #f65656;
+}
+
 table.hw2 tr.hw2 {
     border: 1px transparent;
     background-color: #696969;

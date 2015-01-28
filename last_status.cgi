@@ -43,10 +43,11 @@ print('''
 
 <div id="main">''')
 print('<h1>Data Structure '+prefix+' last upload result</h1>')
-print('<h3>ACCURACY=0  RUNTIME=999 means Fail.</h3>')
-print('<h4>Possible reason:<br>')
+print('<h3>ACCURACY=0  RUNTIME=120 means Example case fail.</h3>')
+print('<h3>ACCURACY=0  RUNTIME=999 means Program fail.</h3>')
+print('<h4>Possible fail reason:<br>')
 print('EXAMPLE CASE Fail, Segmentation fault, Memory Overflow, TIMEOUT or FLOAT POINT EXCEPTION!</h4>')
-print('<h4>We set max run time as 120sec. Forever run means program is killed by system.(mostly, segmentation fault)</h4>')
+print('<h4>We set max run time as <font color="#FF0000">600sec</font>. Forever run means program is killed by system.(mostly, segmentation fault)</h4>')
 print('<table>')
 print("<th>NAME</th><th>LAST ACCURACY</th><th>LAST RUN TIME</th><th>Running</th><th>UPLOAD TIME</th></tr>")
 recordList=cursor.fetchall()[::-1]

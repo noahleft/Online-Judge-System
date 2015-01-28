@@ -43,6 +43,7 @@ print('''
 print('<h1>Data Structure '+prefix+' leaderboard</h1>')
 print('<table>')
 print("<tr><th class='noBorder'></th>")
+#print("<th>Rank</th>")
 print("<th>NAME</th><th>ACCURACY</th><th>RUN TIME</th><th>ORDER CHANGE</th></tr>")
 recordList=cursor.fetchall()[::]
 
@@ -55,12 +56,21 @@ img_up="<img src='graph/up.svg' width='20' />"
 img_down="<img src='graph/down.svg' width='20' />"
 img_blood="<img src='graph/new_blood.svg' width='20' />"
 
+def calRank(acc,com,ref):
+  if acc==100:
+    if com-ref<=15:
+      return '<font>'+str(int((com-ref)/2.5)+1)+'</font>'
+    else:
+      return 'none'
+  return ''
+
 for record in recordList:
   print('<tr>')
   if recordList.index(record)<=4:
     print('<td class="noBorder">'+number[recordList.index(record)]+'</td>')
   else:
     print('<td class="noBorder">'+str(recordList.index(record)+1)+'</td>')
+  #print('<td>'+str(calRank(record[1],record[2],recordList[0][2]))+'</td>')
   flag='<font>'
   print('<td>'+flag+user_map[record[0]]+'</font>'+'</td>')
   for element in record[1:len(record)-1]:
