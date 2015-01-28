@@ -1,4 +1,4 @@
 cgi-bin/tmp/*
 *.db
 docs/
-
+*.pyc
