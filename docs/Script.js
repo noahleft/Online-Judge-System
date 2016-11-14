@@ -1,7 +1,7 @@
 document.getElementById("nav01").innerHTML =
 "<ul id='menu'>" +
 "<li><a href='index.html'>Home</a></li>" +
-"<li><a href='course.cgi'>Course</a></li>" +
+"<li><a href='course.html'>Course</a></li>" +
 "<li><a href='about.html'>About</a></li>" +
 "<li><a href='fame_hall.html'>FameHall</a></li>" +
 "<li><a href='submit_page_demo.cgi'>Submit</a></li>" +
